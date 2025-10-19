@@ -1,7 +1,7 @@
 
 #include "philo.h"
 
-int ft_valid_pos_num(char *s)
+int ft_valid_num(char *s)
 {
     int i;
     int res;
@@ -44,3 +44,30 @@ int ft_atoi(char *s)
     }
     return (res);
 }
+
+int check_args(int ac, char *av[])
+{
+    int i;
+
+    if (!av[0])
+        printf("Wrong arguments\n");
+    i = 1;
+    while (i < ac)
+    {
+        if (ft_valid_num(av[i]) == 1)
+            return (1);
+        i++;
+    }
+    return (0);
+}
+
+uint64_t   get_time(void)
+{
+    struct timeval  c_time;
+    uint64_t        time;
+
+    gettimeofday(&c_time, NULL);
+    time = ((uint64_t)c_time.tv_sec * 1000) + ((uint64_t)c_time.tv_usec / 1000);
+    return (time);
+}
+
