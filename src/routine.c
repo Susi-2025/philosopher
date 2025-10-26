@@ -34,8 +34,11 @@ static	void	think_phase(t_philo *philo)
 	uint64_t	current_time;
 
 	current_time = get_time();
-	while (current_time < philo->table->think_time)
-		print_message(philo->table, philo->id, THINK);
+	while (philo->table->end_simu == 0)
+	{
+		while (current_time < philo->table->think_time)
+			print_message(philo->table, philo->id, THINK);
+	}
 }
 
 static	void	pick_fork(t_philo *philo)// not for only 1 philo
@@ -50,8 +53,15 @@ static	void	eat_phase(t_philo *philo)
 	uint64_t	current_time;
 
 	current_time = get_time();
-	while (current_time < philo->table->eat_time)
-		print_message(philo->table, philo->id, EAT);
+	while (philo->table->end_simu == 0)
+	{
+		while (current_time < philo->table->eat_time)
+		{
+			print_message(philo->table, philo->id, EAT);
+			pthread_mutex_unlock(philo->right_fork);
+			pthread_mutex_unlock(philo->left_fork);
+		}
+	}
 }
 
 static	void	sleep_phase(t_philo *philo)
@@ -59,6 +69,9 @@ static	void	sleep_phase(t_philo *philo)
 	uint64_t	current_time;
 
 	current_time = get_time();
-	while (current_time < philo->table->sleep_time)
-		print_message(philo->table, philo->id, SLEEP);
+	while (philo->table->end_simu == 0)
+	{
+		while (current_time < philo->table->sleep_time)
+			print_message(philo->table, philo->id, SLEEP);
+	}
 }
