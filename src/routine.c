@@ -6,7 +6,7 @@
 // show message thinking
 // pick fork;
 
-static	int	pick_fork(t_philo *philo);
+static	void	pick_fork(t_philo *philo);
 
 void	*philo_routine(void *arg)
 {
@@ -14,31 +14,51 @@ void	*philo_routine(void *arg)
 
 	philo = (t_philo *)arg;
 	
-	while (!philo->table->start_time)
+	while (!philo->table->start_time) // synchronous all philos
 		;
-	if (((philo->id - 1) % 2) != 0)
+	if (((philo->id - 1) % 2) != 0) // odd or even must wait
 		usleep (1000);
-	philo->last_meal_time = get_time();
-	if (print_message(philo->table, philo->id, THINK) == FAIL)
-		return (NULL);
-	while(philo->table->end_simu == 0)
+	philo->last_meal_time = get_time(); // update the last_meal_time ?? is it correct
+	while(philo->table->end_simu == 0) // if not end_simulation, allow to run
 	{
-		if (pick_fork(philo) == FAIL)
-			break ;
+		think_phase(philo);
+		pick_fork(philo);
+		eat_phase(philo);
+		sleep_phase(philo);
 	}
 	return (NULL);
 }
 
-static	int	pick_fork(t_philo *philo)
+static	void	think_phase(t_philo *philo)
 {
-	if (print_message(philo->table, philo->id, FORK_PICK) == FAIL)
-		return (FAIL);
-	if (pthread_mutex_lock(philo->left_fork) == FAIL)
-		return (FAIL);
-	if (pthread_mutex_lock(philo->right_fork) == FAIL)
-	{
-		pthread_mutex_unlock(philo->left_fork);
-		return (FAIL);
-	}
-	return (SUCC);
+	uint64_t	current_time;
+
+	current_time = get_time();
+	while (current_time < philo->table->think_time)
+		print_message(philo->table, philo->id, THINK);
+}
+
+static	void	pick_fork(t_philo *philo)// not for only 1 philo
+{
+	print_message(philo->table, philo->id, FORK_PICK);
+	pthread_mutex_lock(philo->left_fork);
+	pthread_mutex_lock(philo->right_fork);
+}
+
+static	void	eat_phase(t_philo *philo)
+{
+	uint64_t	current_time;
+
+	current_time = get_time();
+	while (current_time < philo->table->eat_time)
+		print_message(philo->table, philo->id, EAT);
+}
+
+static	void	sleep_phase(t_philo *philo)
+{
+	uint64_t	current_time;
+
+	current_time = get_time();
+	while (current_time < philo->table->sleep_time)
+		print_message(philo->table, philo->id, SLEEP);
 }

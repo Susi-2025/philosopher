@@ -37,6 +37,7 @@ typedef struct  s_table
     unsigned    int die_time;
     unsigned    int eat_time;
     unsigned    int sleep_time;
+    unsigned    int think_time;
     unsigned    int must_eat;
     unsigned    int end_simu;
     uint64_t        start_time;

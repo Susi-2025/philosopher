@@ -47,6 +47,7 @@ static	void    init_num_table(t_table *table, char *av[], int ac)
     table->eat_time = ft_atoi(av[3]);
     table->sleep_time = ft_atoi(av[4]);
 	table->start_time = 0;
+	table->think_time = set_think_time(table);
 	if (ac == 6)
         table->must_eat = ft_atoi(av[5]);
     else
@@ -95,4 +96,14 @@ static	int	init_mutex_table(t_table *table)
 	}
 	i = 0;
 	return (SUCC);
+}
+
+static int	set_think_time(t_philo *philo)
+{
+	int		think_time;
+
+	think_time = (philo->table->die_time - philo->table->eat_time
+				- philo->table->sleep_time) / 2;
+
+	return (think_time);
 }
