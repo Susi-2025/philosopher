@@ -30,3 +30,11 @@ static	void	clean_pthread(pthread_mutex_t *forks, int len)
 	}
 	free(forks);
 }
+
+int	err_clean(t_table *table, int code)
+{
+	if (!table)
+		return (code);
+	clean_data(table);
+	return (code);
+}

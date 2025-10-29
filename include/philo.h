@@ -28,6 +28,7 @@ typedef struct  s_philo
     pthread_mutex_t *left_fork;
     pthread_mutex_t *right_fork;
     uint64_t        last_meal_time;
+    int             have_eaten;
     t_table         *table;
 }   t_philo;
 
@@ -57,10 +58,12 @@ int	start_simulation(t_table *table);
 
 // routine
 void	*philo_routine(void *arg);
+void	safe_usleep(t_table *table, uint64_t duration);
 
 //utility
 int ft_valid_num(char *s);
 int ft_atoi(char *s);
+int ft_strcmp(char *s1, char *s2);
 int check_args(int ac, char *av[]);
 uint64_t   get_time(void);
 
@@ -70,4 +73,5 @@ int print_message(t_table *table, int id, char *str);
 
 // clean
 void	clean_data(t_table *table);
+int	    err_clean(t_table *table, int code);
 #endif

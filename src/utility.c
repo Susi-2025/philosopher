@@ -29,7 +29,7 @@ int ft_valid_num(char *s)
 int ft_atoi(char *s)
 {
     int i;
-    unsigned int    res;
+    unsigned int res;
 
     i = 0;
     res = 0;
@@ -39,35 +39,24 @@ int ft_atoi(char *s)
         i++;
     while (s[i])
     {
-        res = res * 10 +  s[i] - '0';
+        res = res * 10 + s[i] - '0';
         i++;
     }
     return (res);
 }
 
-int check_args(int ac, char *av[])
+int ft_strcmp(char *s1, char *s2)
 {
     int i;
 
-    if (!av[0])
-        printf("Wrong arguments\n");
-    i = 1;
-    while (i < ac)
-    {
-        if (ft_valid_num(av[i]) == 1)
-            return (1);
+    if (!s1 && !s2)
+        return (0);
+    if (!s1)
+        return (-1);
+    if (!s2)
+        return (1);
+    i = 0;
+    while (s1[i] && s2[i] && s1[i] == s2[i])
         i++;
-    }
-    return (0);
+    return (s1[i] - s2[i]);
 }
-
-uint64_t   get_time(void)
-{
-    struct timeval  c_time;
-    uint64_t        time;
-
-    gettimeofday(&c_time, NULL);
-    time = ((uint64_t)c_time.tv_sec * 1000) + ((uint64_t)c_time.tv_usec / 1000);
-    return (time);
-}
-

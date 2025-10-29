@@ -26,14 +26,15 @@ int	init_philo(t_table *table)
 	{
 		table->philos[i].id = i + 1;
 		table->philos[i].table = table;
-		if (!(&table->forks[i]))
-			return (FAIL);
+		// if ((&table->forks[i]))
+		// 	return (FAIL);
 		table->philos[i].left_fork = &table->forks[i];
 		if (i == (table->philo_num - 1))
 			table->philos[i].right_fork = &table->forks[0];
 		else
 			table->philos[i].right_fork = &table->forks[i + 1];
 		table->philos[i].last_meal_time = get_time();
+		table->philos[i].have_eaten = 0;
 		i++;
 	}
 	return (SUCC);
@@ -98,12 +99,12 @@ static	int	init_mutex_table(t_table *table)
 	return (SUCC);
 }
 
-static int	set_think_time(t_philo *philo)
+static int	set_think_time(t_table *table)
 {
 	int		think_time;
 
-	think_time = (philo->table->die_time - philo->table->eat_time
-				- philo->table->sleep_time) / 2;
-
+	think_time = (table->die_time - table->eat_time - table->sleep_time) / 2;
+	if (think_time < 0)
+		think_time = 0;
 	return (think_time);
 }

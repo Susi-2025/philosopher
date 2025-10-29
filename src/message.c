@@ -7,10 +7,15 @@ int error_message(char *str, int code)
     return (code);
 }
 
-int    print_message(t_table *table, int id, char *str)
+int print_message(t_table *table, int id, char *str)
 {
-    uint64_t    time_display;
+    uint64_t time_display;
     pthread_mutex_lock(&table->print_lock);
+    if (table->end_simu == 1 && ft_strcmp(str, DIE)!= 0)
+    {
+        pthread_mutex_unlock(&table->print_lock);
+        return (FAIL);
+    }
     time_display = get_time() - table->start_time;
     printf("%lu %d %s", time_display, id, str);
     pthread_mutex_unlock(&table->print_lock);
