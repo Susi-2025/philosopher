@@ -1,11 +1,12 @@
 
 #include "philo.h"
 
-static	void    init_num_table(t_table *table, char *av[], int ac);
-static	int		init_mem_table(t_table *table);
-static	int		init_mutex_table(t_table *table);
+static void init_num_table(t_table *table, char *av[], int ac);
+static int init_mem_table(t_table *table);
+static int init_mutex_table(t_table *table);
+static int set_think_time(t_table *table);
 
-int    init_table(t_table *table, char *av[], int ac)
+int init_table(t_table *table, char *av[], int ac)
 {
 	init_num_table(table, av, ac);
 	if (init_mem_table(table) == FAIL)
@@ -15,9 +16,9 @@ int    init_table(t_table *table, char *av[], int ac)
 	return (SUCC);
 }
 
-int	init_philo(t_table *table)
+int init_philo(t_table *table)
 {
-	unsigned	int	i;
+	unsigned int i;
 
 	if (!table || !table->philos || !table->forks)
 		return (FAIL);
@@ -40,47 +41,47 @@ int	init_philo(t_table *table)
 	return (SUCC);
 }
 
-static	void    init_num_table(t_table *table, char *av[], int ac)
+static void init_num_table(t_table *table, char *av[], int ac)
 {
-    table->end_simu = 0;
+	table->end_simu = 0;
 	table->philo_num = ft_atoi(av[1]);
-    table->die_time = ft_atoi(av[2]);
-    table->eat_time = ft_atoi(av[3]);
-    table->sleep_time = ft_atoi(av[4]);
+	table->die_time = ft_atoi(av[2]);
+	table->eat_time = ft_atoi(av[3]);
+	table->sleep_time = ft_atoi(av[4]);
 	table->start_time = 0;
 	table->think_time = set_think_time(table);
 	if (ac == 6)
-        table->must_eat = ft_atoi(av[5]);
-    else
-        table->must_eat = 0;
+		table->must_eat = ft_atoi(av[5]);
+	else
+		table->must_eat = 0;
 }
 
-static	int    init_mem_table(t_table *table)
+static int init_mem_table(t_table *table)
 {
-	t_philo	*philos;
-	
+	t_philo *philos;
+
 	if (!table)
 		return (FAIL);
 	table->forks = malloc(sizeof(pthread_mutex_t) * table->philo_num);
 	if (!table->forks)
-		return(FAIL);
+		return (FAIL);
 	philos = malloc(sizeof(t_philo) * table->philo_num);
 	if (!philos)
-		return(clean_data(table), FAIL);
+		return (clean_data(table), FAIL);
 	table->philos = philos;
 	table->threads = malloc(sizeof(pthread_t) * table->philo_num);
 	if (!table->threads)
-		return(clean_data(table), FAIL);
+		return (clean_data(table), FAIL);
 	return (SUCC);
 }
 
-static	int	init_mutex_table(t_table *table)
+static int init_mutex_table(t_table *table)
 {
-	unsigned int	i;
+	unsigned int i;
 
 	i = 0;
 	if (pthread_mutex_init(&table->print_lock, NULL) != 0)
-		return(clean_data(table), FAIL);
+		return (clean_data(table), FAIL);
 	while (i < table->philo_num)
 	{
 		if (pthread_mutex_init(&table->forks[i], NULL) != 0)
@@ -91,7 +92,7 @@ static	int	init_mutex_table(t_table *table)
 				pthread_mutex_destroy(&table->forks[i]);
 				i--;
 			}
-			return(clean_data(table), FAIL);
+			return (clean_data(table), FAIL);
 		}
 		i++;
 	}
@@ -99,9 +100,9 @@ static	int	init_mutex_table(t_table *table)
 	return (SUCC);
 }
 
-static int	set_think_time(t_table *table)
+static int set_think_time(t_table *table)
 {
-	int		think_time;
+	int think_time;
 
 	think_time = (table->die_time - table->eat_time - table->sleep_time) / 2;
 	if (think_time < 0)

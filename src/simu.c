@@ -11,8 +11,7 @@ int start_simulation(t_table *table)
 	// table->start_time = get_time();
 	while (i < table->philo_num)
 	{
-		if (pthread_create(&table->threads[i], NULL
-				, philo_routine, &table->philos[i]) != 0)
+		if (pthread_create(&table->threads[i], NULL, philo_routine, &table->philos[i]) != 0)
 			return (clean_data(table), FAIL);
 		i++;
 	}
@@ -28,11 +27,11 @@ int start_simulation(t_table *table)
 	return (SUCC);
 }
 
-void	monitoring (t_table *table)
+void monitoring(t_table *table)
 {
-	int			i;
-	uint64_t	wait_time;
-	int			full_count;
+	unsigned int	i;
+	uint64_t 		wait_time;
+	unsigned int	full_count;
 
 	while (table->end_simu == 0)
 	{
@@ -46,9 +45,8 @@ void	monitoring (t_table *table)
 				table->end_simu = 1;
 				print_message(table, table->philos[i].id, DIE);
 			}
-			if (table->must_eat != 0 && table->philos[i].have_eaten
-						== table->must_eat)
-					full_count++;
+			if (table->must_eat != 0 && table->philos[i].have_eaten == table->must_eat)
+				full_count++;
 			i++;
 		}
 		if (table->must_eat != 0 && full_count == table->philo_num)

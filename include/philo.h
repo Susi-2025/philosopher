@@ -28,7 +28,7 @@ typedef struct  s_philo
     pthread_mutex_t *left_fork;
     pthread_mutex_t *right_fork;
     uint64_t        last_meal_time;
-    int             have_eaten;
+    unsigned    int have_eaten;
     t_table         *table;
 }   t_philo;
 
@@ -55,6 +55,7 @@ int init_philo(t_table *philo);
 
 // simulation
 int	start_simulation(t_table *table);
+void monitoring(t_table *table);
 
 // routine
 void	*philo_routine(void *arg);

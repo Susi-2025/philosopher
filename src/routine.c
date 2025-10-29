@@ -56,8 +56,6 @@ static void pick_fork(t_philo *philo) // not for only 1 philo
 
 static void eat_phase(t_philo *philo)
 {
-	uint64_t current_time;
-
 	philo->last_meal_time = get_time();
 	print_message(philo->table, philo->id, EAT);
 	safe_usleep(philo->table, philo->table->eat_time * 1000);
