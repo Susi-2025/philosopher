@@ -1,12 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   initial.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/02 15:40:56 by vinguyen          #+#    #+#             */
+/*   Updated: 2025/11/02 17:43:32 by vinguyen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "philo.h"
 
-static void init_num_table(t_table *table, char *av[], int ac);
-static int init_mem_table(t_table *table);
-static int init_mutex_table(t_table *table);
-static int set_think_time(t_table *table);
+static void	init_num_table(t_table *table, char *av[], int ac);
+static int	init_mem_table(t_table *table);
+static int	init_mutex_table(t_table *table);
 
-int init_table(t_table *table, char *av[], int ac)
+int	init_table(t_table *table, char *av[], int ac)
 {
 	init_num_table(table, av, ac);
 	if (init_mem_table(table) == FAIL)
@@ -16,9 +26,9 @@ int init_table(t_table *table, char *av[], int ac)
 	return (SUCC);
 }
 
-int init_philo(t_table *table)
+int	init_philo(t_table *table)
 {
-	unsigned int i;
+	unsigned int	i;
 
 	if (!table || !table->philos || !table->forks)
 		return (FAIL);
@@ -27,21 +37,20 @@ int init_philo(t_table *table)
 	{
 		table->philos[i].id = i + 1;
 		table->philos[i].table = table;
-		// if ((&table->forks[i]))
-		// 	return (FAIL);
 		table->philos[i].left_fork = &table->forks[i];
 		if (i == (table->philo_num - 1))
 			table->philos[i].right_fork = &table->forks[0];
 		else
 			table->philos[i].right_fork = &table->forks[i + 1];
-		table->philos[i].last_meal_time = get_time();
 		table->philos[i].have_eaten = 0;
+		table->philos[i].last_meal_time = get_time();
+		table->philos[i].lock_status = 0;
 		i++;
 	}
 	return (SUCC);
 }
 
-static void init_num_table(t_table *table, char *av[], int ac)
+static void	init_num_table(t_table *table, char *av[], int ac)
 {
 	table->end_simu = 0;
 	table->philo_num = ft_atoi(av[1]);
@@ -56,9 +65,9 @@ static void init_num_table(t_table *table, char *av[], int ac)
 		table->must_eat = 0;
 }
 
-static int init_mem_table(t_table *table)
+static int	init_mem_table(t_table *table)
 {
-	t_philo *philos;
+	t_philo	*philos;
 
 	if (!table)
 		return (FAIL);
@@ -75,9 +84,10 @@ static int init_mem_table(t_table *table)
 	return (SUCC);
 }
 
-static int init_mutex_table(t_table *table)
+static int	init_mutex_table(t_table *table)
 {
-	unsigned int i;
+	unsigned int	i;
+	unsigned int	j;
 
 	i = 0;
 	if (pthread_mutex_init(&table->print_lock, NULL) != 0)
@@ -86,11 +96,11 @@ static int init_mutex_table(t_table *table)
 	{
 		if (pthread_mutex_init(&table->forks[i], NULL) != 0)
 		{
-			i--;
-			while (i > 0)
+			j = 0;
+			while (j < i)
 			{
-				pthread_mutex_destroy(&table->forks[i]);
-				i--;
+				pthread_mutex_destroy(&table->forks[j]);
+				j++;
 			}
 			return (clean_data(table), FAIL);
 		}
@@ -98,14 +108,4 @@ static int init_mutex_table(t_table *table)
 	}
 	i = 0;
 	return (SUCC);
-}
-
-static int set_think_time(t_table *table)
-{
-	int think_time;
-
-	think_time = (table->die_time - table->eat_time - table->sleep_time) / 2;
-	if (think_time < 0)
-		think_time = 0;
-	return (think_time);
 }

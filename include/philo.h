@@ -29,6 +29,7 @@ typedef struct  s_philo
     pthread_mutex_t *right_fork;
     uint64_t        last_meal_time;
     unsigned    int have_eaten;
+    unsigned    int lock_status;
     t_table         *table;
 }   t_philo;
 
@@ -67,6 +68,7 @@ int ft_atoi(char *s);
 int ft_strcmp(char *s1, char *s2);
 int check_args(int ac, char *av[]);
 uint64_t   get_time(void);
+int set_think_time(t_table *table);
 
 //message
 int error_message(char *str, int code);
@@ -75,4 +77,5 @@ int print_message(t_table *table, int id, char *str);
 // clean
 void	clean_data(t_table *table);
 int	    err_clean(t_table *table, int code);
+int     unlock_forks(t_philo *philo, int code);
 #endif
