@@ -92,6 +92,8 @@ static int	init_mutex_table(t_table *table)
 	i = 0;
 	if (pthread_mutex_init(&table->print_lock, NULL) != 0)
 		return (clean_data(table), FAIL);
+	if (pthread_mutex_init(&table->end, NULL) != 0)
+		return (clean_data(table), FAIL);
 	while (i < table->philo_num)
 	{
 		if (pthread_mutex_init(&table->forks[i], NULL) != 0)

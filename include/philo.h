@@ -48,6 +48,7 @@ typedef struct  s_table
     pthread_t       *threads;
     pthread_mutex_t *forks;
     pthread_mutex_t print_lock;
+    pthread_mutex_t end;
 }   t_table;
 
 // initial
@@ -57,6 +58,8 @@ int init_philo(t_table *philo);
 // simulation
 int	start_simulation(t_table *table);
 void monitoring(t_table *table);
+void	one_running(t_table *table);
+void	update_simu(t_table *table, int i, int code);
 
 // routine
 void	*philo_routine(void *arg);

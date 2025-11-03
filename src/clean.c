@@ -25,6 +25,7 @@ void	clean_data(t_table *table)
 	if (table->threads)
 		free(table->threads);
 	pthread_mutex_destroy(&table->print_lock);
+	pthread_mutex_destroy(&table->end);
 }
 
 static	void	clean_pthread(pthread_mutex_t *forks, int len)

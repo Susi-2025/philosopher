@@ -88,11 +88,11 @@ static int	eat_phase(t_philo *philo)
 
 static int	sleep_phase(t_philo *philo)
 {
-	if (philo->table->end_simu == 1 && philo->lock_status == 1)
-		return (unlock_forks(philo, -1));
+	// if (philo->table->end_simu == 1 && philo->lock_status == 1)
+	// 	return (unlock_forks(philo, -1));
 	print_message(philo->table, philo->id, SLEEP);
 	safe_usleep(philo->table, philo->table->sleep_time);
-	if (philo->table->end_simu == 1 && philo->lock_status == 1)
-		return (unlock_forks(philo, -1));
+	// if (philo->table->end_simu == 1 && philo->lock_status == 1)
+	// 	return (unlock_forks(philo, -1));
 	return (0);
 }

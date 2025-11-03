@@ -22,7 +22,10 @@ int	main(int ac, char *av[])
 		return (err_clean(&table, FAIL));
 	if (init_philo(&table) == FAIL)
 		return (err_clean(&table, FAIL));
-	start_simulation(&table);
+    if (table.philo_num == 1)
+		one_running(&table);
+	else
+		start_simulation(&table);
 	clean_data(&table);
 	return (SUCC);
 }
