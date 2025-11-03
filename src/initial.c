@@ -6,19 +6,19 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 15:40:56 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/11/03 16:14:51 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/11/03 17:50:54 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	init_num_table(t_table *table, char *av[], int ac);
+static void	parsing_table(t_table *table, char *av[], int ac);
 static int	init_mem_table(t_table *table);
 static int	init_mutex_table(t_table *table);
 
 int	init_table(t_table *table, char *av[], int ac)
 {
-	init_num_table(table, av, ac);
+	parsing_table(table, av, ac);
 	if (init_mem_table(table) == FAIL)
 		return (FAIL);
 	if (init_mutex_table(table) == FAIL)
@@ -49,7 +49,7 @@ int	init_philo(t_table *table)
 	return (SUCC);
 }
 
-static void	init_num_table(t_table *table, char *av[], int ac)
+static void	parsing_table(t_table *table, char *av[], int ac)
 {
 	table->end_simu = 0;
 	table->philo_num = ft_atoi(av[1]);
@@ -75,11 +75,11 @@ static int	init_mem_table(t_table *table)
 		return (FAIL);
 	philos = malloc(sizeof(t_philo) * table->philo_num);
 	if (!philos)
-		return (clean_data(table), FAIL);
+		return (clean_data(table, FAIL));
 	table->philos = philos;
 	table->threads = malloc(sizeof(pthread_t) * table->philo_num);
 	if (!table->threads)
-		return (clean_data(table), FAIL);
+		return (clean_data(table, FAIL));
 	return (SUCC);
 }
 
@@ -90,7 +90,7 @@ static int	init_mutex_table(t_table *table)
 
 	i = 0;
 	if (pthread_mutex_init(&table->print_lock, NULL) != 0)
-		return (clean_data(table), FAIL);
+		return (clean_data(table, FAIL));
 	while (i < table->philo_num)
 	{
 		if (pthread_mutex_init(&table->forks[i], NULL) != 0)
@@ -101,7 +101,7 @@ static int	init_mutex_table(t_table *table)
 				pthread_mutex_destroy(&table->forks[j]);
 				j++;
 			}
-			return (clean_data(table), FAIL);
+			return (clean_data(table, FAIL));
 		}
 		i++;
 	}

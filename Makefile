@@ -6,7 +6,7 @@
 #    By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/16 12:30:39 by vinguyen          #+#    #+#              #
-#    Updated: 2025/11/03 16:21:19 by vinguyen         ###   ########.fr        #
+#    Updated: 2025/11/03 18:22:11 by vinguyen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CFLAGS = -Wall -Werror -Wextra -Iinclude
 SRC_DIR = src
 OBJ_DIR = object
 
-MAIN_FILES = main.c clean.c initial.c message.c routine.c simu.c utility.c
+MAIN_FILES = main.c clean.c initial.c message.c routine.c simulation.c utility.c
 
 SRC = $(addprefix $(SRC_DIR)/, $(MAIN_FILES))
 		

@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 16:15:55 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/11/03 16:17:27 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/11/03 18:31:33 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,10 @@ int						init_philo(t_table *philo);
 int						start_simulation(t_table *table);
 void					monitoring(t_table *table);
 void					one_running(t_table *table);
-int						check_die(t_table *table, int i);
+int						check_die(t_table *table);
 int						check_full(t_table *table);
 // routine
-void					*philo_routine(void *arg);
+void					*routine(void *arg);
 void					safe_usleep(t_table *table, uint64_t duration);
 // utility
 int						ft_valid_num(char *s);
@@ -82,7 +82,7 @@ int						set_think_time(t_table *table);
 int						error_message(char *str, int code);
 int						print_message(t_table *table, int id, char *str);
 // clean
-void					clean_data(t_table *table);
+int						clean_data(t_table *table, int code);
 int						err_clean(t_table *table, int code);
 int						unlock_forks(t_philo *philo, int code);
 #endif

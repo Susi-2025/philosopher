@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 15:41:05 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/11/03 16:15:36 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/11/03 17:50:22 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int ac, char *av[])
 		one_running(&table);
 	else
 		start_simulation(&table);
-	clean_data(&table);
+	clean_data(&table, 0);
 	return (SUCC);
 }
 
