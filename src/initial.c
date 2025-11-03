@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 15:40:56 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/11/02 17:43:32 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/11/03 16:14:51 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	init_table(t_table *table, char *av[], int ac)
 
 int	init_philo(t_table *table)
 {
-	unsigned int	i;
+	int	i;
 
 	if (!table || !table->philos || !table->forks)
 		return (FAIL);
@@ -44,7 +44,6 @@ int	init_philo(t_table *table)
 			table->philos[i].right_fork = &table->forks[i + 1];
 		table->philos[i].have_eaten = 0;
 		table->philos[i].last_meal_time = get_time();
-		table->philos[i].lock_status = 0;
 		i++;
 	}
 	return (SUCC);
@@ -86,13 +85,11 @@ static int	init_mem_table(t_table *table)
 
 static int	init_mutex_table(t_table *table)
 {
-	unsigned int	i;
-	unsigned int	j;
+	int	i;
+	int	j;
 
 	i = 0;
 	if (pthread_mutex_init(&table->print_lock, NULL) != 0)
-		return (clean_data(table), FAIL);
-	if (pthread_mutex_init(&table->end, NULL) != 0)
 		return (clean_data(table), FAIL);
 	while (i < table->philo_num)
 	{

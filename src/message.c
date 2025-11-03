@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 15:41:16 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/11/02 17:44:21 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/11/03 16:18:45 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,13 @@ int	print_message(t_table *table, int id, char *str)
 	printf("%lu %d %s", time_display, id, str);
 	pthread_mutex_unlock(&table->print_lock);
 	return (SUCC);
+}
+
+void	safe_usleep(t_table *table, uint64_t duration)
+{
+	uint64_t	start;
+
+	start = get_time();
+	while (!table->end_simu && (get_time() - start) < duration)
+		usleep(500);
 }

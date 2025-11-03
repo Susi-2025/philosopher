@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 15:41:05 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/11/02 15:43:35 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/11/03 16:15:36 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int ac, char *av[])
 		return (err_clean(&table, FAIL));
 	if (init_philo(&table) == FAIL)
 		return (err_clean(&table, FAIL));
-    if (table.philo_num == 1)
+	if (table.philo_num == 1)
 		one_running(&table);
 	else
 		start_simulation(&table);
@@ -34,7 +34,7 @@ int	check_args(int ac, char *av[])
 {
 	int	i;
 
-	if (!av[0])
+	if (!av[1])
 		printf("Wrong arguments\n");
 	i = 1;
 	while (i < ac)

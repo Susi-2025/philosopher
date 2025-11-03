@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 15:41:48 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/11/02 15:44:14 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/11/03 16:14:41 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	ft_valid_num(char *s)
 {
 	int	i;
 	int	res;
+	int	digit;
 
 	i = 0;
 	res = 0;
@@ -23,15 +24,15 @@ int	ft_valid_num(char *s)
 		return (1);
 	while (s[i] == ' ' || (s[i] >= 9 && s[i] <= 13))
 		i++;
-	if (s[i] == '-')
+	if (s[i] == '-' || s[i] == '0')
 		return (1);
-	while (s[i])
+	while (s[i] >= '0' && s[i] <= '9')
 	{
-		if (!(s[i] >= '0' && s[i] <= '9'))
+		digit = s[i] - '0';
+		if (res > INT_MAX / 10 || (res == INT_MAX / 10 && digit > (INT_MAX
+					% 10)))
 			return (1);
 		res = res * 10 + (s[i] - '0');
-		if (res > INT_MAX)
-			return (1);
 		i++;
 	}
 	return (0);
