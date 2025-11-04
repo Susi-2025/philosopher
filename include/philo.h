@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 16:15:55 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/11/03 18:31:33 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/11/04 09:57:41 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,4 @@ int						print_message(t_table *table, int id, char *str);
 // clean
 int						clean_data(t_table *table, int code);
 int						err_clean(t_table *table, int code);
-int						unlock_forks(t_philo *philo, int code);
 #endif

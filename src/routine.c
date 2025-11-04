@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 19:18:00 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/11/03 19:19:12 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/11/04 09:56:53 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*routine(void *args)
 
 	philo = (t_philo *)args;
 	if (philo->id % 2 == 0)
-		usleep(2000);
+		usleep(3000);
 	philo->last_meal_time = get_time();
 	print_message(philo->table, philo->id, THINK);
 	while (philo->table->end_simu == 0)
@@ -58,7 +58,6 @@ static int	eat_sleep_think(t_philo *philo)
 {
 	print_message(philo->table, philo->id, EAT);
 	philo->last_meal_time = get_time();
-	philo->have_eaten++;
 	safe_usleep(philo->table, philo->table->eat_time);
 	if (philo->table->end_simu)
 	{
@@ -68,6 +67,7 @@ static int	eat_sleep_think(t_philo *philo)
 	}
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
+	philo->have_eaten++;
 	print_message(philo->table, philo->id, SLEEP);
 	safe_usleep(philo->table, philo->table->sleep_time);
 	if (philo->table->end_simu)

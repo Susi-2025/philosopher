@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 15:40:27 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/11/03 18:32:09 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/11/04 09:58:26 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,5 @@ int	err_clean(t_table *table, int code)
 	if (!table)
 		return (code);
 	clean_data(table, 0);
-	return (code);
-}
-
-int	unlock_forks(t_philo *philo, int code)
-{
-	pthread_mutex_unlock(philo->right_fork);
-	pthread_mutex_unlock(philo->left_fork);
 	return (code);
 }
