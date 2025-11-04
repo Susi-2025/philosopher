@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 19:18:00 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/11/04 09:56:53 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/11/04 10:10:03 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*routine(void *args)
 
 	philo = (t_philo *)args;
 	if (philo->id % 2 == 0)
-		usleep(3000);
+		usleep(2000);
 	philo->last_meal_time = get_time();
 	print_message(philo->table, philo->id, THINK);
 	while (philo->table->end_simu == 0)

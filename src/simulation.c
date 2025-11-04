@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 19:18:25 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/11/04 09:51:28 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/11/04 10:21:26 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ void	monitoring(t_table *table)
 	while (table->end_simu == 0)
 	{
 		if (check_die(table))
-			break ;
+			table->end_simu = 1 ;
 		if (check_full(table))
 			table->end_simu = 1 ;
-		usleep (500);
+		usleep (1000);
 	}
 }
 
@@ -59,7 +59,7 @@ int	check_die(t_table *table)
 	{
 		if ((get_time() - table->philos[i].last_meal_time) >= table->die_time)
 		{
-			table->end_simu = 1;
+			print_message(table, table->philos[0].id, DIE);
 			return (1);
 		}
 		i++;
@@ -93,9 +93,9 @@ void	one_running(t_table *table)
 	while (table->end_simu == 0)
 	{
 		if (check_die(table))
-			break ;
+			table->end_simu = 1 ;
 		if (check_full(table))
-			break ;
-		usleep (500);
+			table->end_simu = 1 ;
+		usleep (1000);
 	}
 }
