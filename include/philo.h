@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 16:15:55 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/11/04 09:57:41 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/11/04 12:02:11 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ typedef struct s_philo
 	int					id;
 	pthread_mutex_t		*left_fork;
 	pthread_mutex_t		*right_fork;
-	_Atomic uint64_t	last_meal_time;
-	_Atomic int			have_eaten;
+	_Atomic uint64_t last_meal_time;
+	_Atomic int have_eaten;
 	t_table				*table;
 }						t_philo;
 
@@ -51,12 +51,12 @@ typedef struct s_table
 	uint64_t			sleep_time;
 	uint64_t			think_time;
 	int					must_eat;
-	_Atomic uint64_t	start_time;
+	_Atomic uint64_t start_time;
 	t_philo				*philos;
 	pthread_t			*threads;
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		print_lock;
-	_Atomic int			end_simu;
+	_Atomic int end_simu;
 }						t_table;
 
 // initial
@@ -75,6 +75,7 @@ void					safe_usleep(t_table *table, uint64_t duration);
 int						ft_valid_num(char *s);
 int						ft_atoi(char *s);
 int						ft_strcmp(char *s1, char *s2);
+void					ft_bzero(void *s, size_t n);
 int						check_args(int ac, char *av[]);
 uint64_t				get_time(void);
 int						set_think_time(t_table *table);

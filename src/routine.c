@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 19:18:00 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/11/04 10:10:03 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/11/04 12:01:48 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ static int	lock_forks(t_philo *philo)
 
 static int	eat_sleep_think(t_philo *philo)
 {
-	print_message(philo->table, philo->id, EAT);
 	philo->last_meal_time = get_time();
 	safe_usleep(philo->table, philo->table->eat_time);
 	if (philo->table->end_simu)
@@ -67,6 +66,7 @@ static int	eat_sleep_think(t_philo *philo)
 	}
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
+	print_message(philo->table, philo->id, EAT);
 	philo->have_eaten++;
 	print_message(philo->table, philo->id, SLEEP);
 	safe_usleep(philo->table, philo->table->sleep_time);

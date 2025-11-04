@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 15:41:48 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/11/03 16:14:41 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/11/04 12:39:49 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ int	ft_valid_num(char *s)
 		i++;
 	if (s[i] == '-' || s[i] == '0')
 		return (1);
-	while (s[i] >= '0' && s[i] <= '9')
+	while (s[i])
 	{
+		if (!(s[i] >= '0' && s[i] <= '9'))
+			return (1);
 		digit = s[i] - '0';
 		if (res > INT_MAX / 10 || (res == INT_MAX / 10 && digit > (INT_MAX
 					% 10)))
@@ -73,4 +75,16 @@ int	ft_strcmp(char *s1, char *s2)
 	while (s1[i] && s2[i] && s1[i] == s2[i])
 		i++;
 	return (s1[i] - s2[i]);
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < n)
+	{
+		((unsigned char *)s)[i] = '\0';
+		i++;
+	}
 }

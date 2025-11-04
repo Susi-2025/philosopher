@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 19:18:25 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/11/04 10:21:26 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/11/04 12:45:04 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	check_die(t_table *table)
 	{
 		if ((get_time() - table->philos[i].last_meal_time) >= table->die_time)
 		{
-			print_message(table, table->philos[0].id, DIE);
+			print_message(table, table->philos[i].id, DIE);
 			return (1);
 		}
 		i++;

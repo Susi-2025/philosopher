@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 15:41:05 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/11/03 17:50:22 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/11/04 12:03:31 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main(int ac, char *av[])
 
 	if (ac < 5 || ac > 6 || (check_args(ac, av) == 1))
 		return (error_message(ARG_ERR, FAIL));
+	ft_bzero(&table, sizeof(t_table));
 	if (init_table(&table, av, ac) == FAIL)
 		return (err_clean(&table, FAIL));
 	if (init_philo(&table) == FAIL)
