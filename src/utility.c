@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 15:41:48 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/11/04 12:39:49 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/11/04 14:18:31 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,8 @@ int	ft_valid_num(char *s)
 		i++;
 	if (s[i] == '-' || s[i] == '0')
 		return (1);
-	while (s[i])
+	while (s[i] >= '0' && s[i] <= '9')
 	{
-		if (!(s[i] >= '0' && s[i] <= '9'))
-			return (1);
 		digit = s[i] - '0';
 		if (res > INT_MAX / 10 || (res == INT_MAX / 10 && digit > (INT_MAX
 					% 10)))
@@ -37,7 +35,10 @@ int	ft_valid_num(char *s)
 		res = res * 10 + (s[i] - '0');
 		i++;
 	}
-	return (0);
+	if (s[i] == '\0')
+		return (0);
+	else
+		return (1);
 }
 
 int	ft_atoi(char *s)

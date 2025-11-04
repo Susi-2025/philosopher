@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 19:18:25 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/11/04 12:45:04 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/11/04 13:25:50 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	monitoring(t_table *table)
 			table->end_simu = 1 ;
 		if (check_full(table))
 			table->end_simu = 1 ;
-		usleep (1000);
+		usleep (500);
 	}
 }
 
@@ -96,6 +96,6 @@ void	one_running(t_table *table)
 			table->end_simu = 1 ;
 		if (check_full(table))
 			table->end_simu = 1 ;
-		usleep (1000);
+		usleep (500);
 	}
 }
