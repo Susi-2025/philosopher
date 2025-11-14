@@ -24,7 +24,7 @@ int	ft_valid_num(char *s)
 		return (1);
 	while (s[i] == ' ' || (s[i] >= 9 && s[i] <= 13))
 		i++;
-	if (s[i] == '-' || s[i] == '0')
+	if (s[i] == '-' || s[i] == '0' || s[i] == '\0')
 		return (1);
 	while (s[i] >= '0' && s[i] <= '9')
 	{
