@@ -6,39 +6,51 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 15:41:48 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/11/04 14:18:31 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/11/15 16:13:10 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+static	int	find_value(char *s, int *i);
+
 int	ft_valid_num(char *s)
 {
 	int	i;
-	int	res;
-	int	digit;
 
 	i = 0;
-	res = 0;
 	if (!s)
 		return (1);
 	while (s[i] == ' ' || (s[i] >= 9 && s[i] <= 13))
 		i++;
 	if (s[i] == '-' || s[i] == '0' || s[i] == '\0')
 		return (1);
-	while (s[i] >= '0' && s[i] <= '9')
-	{
-		digit = s[i] - '0';
-		if (res > INT_MAX / 10 || (res == INT_MAX / 10 && digit > (INT_MAX
-					% 10)))
-			return (1);
-		res = res * 10 + (s[i] - '0');
+	if (find_value(s, &i) == 1)
+		return (1);
+	while (s[i] == ' ' || (s[i] >= 9 && s[i] <= 13))
 		i++;
-	}
 	if (s[i] == '\0')
 		return (0);
 	else
 		return (1);
+}
+
+static	int	find_value(char *s, int *i)
+{
+	int	res;
+	int	digit;
+
+	res = 0;
+	while (s[*i] >= '0' && s[*i] <= '9')
+	{
+		digit = s[*i] - '0';
+		if (res > INT_MAX / 10 || (res == INT_MAX / 10 && digit > (INT_MAX
+					% 10)))
+			return (1);
+		res = res * 10 + (s[*i] - '0');
+		(*i)++;
+	}
+	return (0);
 }
 
 int	ft_atoi(char *s)
