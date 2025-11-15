@@ -6,20 +6,20 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 15:40:27 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/11/04 09:58:26 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/11/15 19:13:07 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	clean_pthread(pthread_mutex_t *forks, int len);
+static void	clean_forks(pthread_mutex_t *forks, int len);
 
 int	clean_data(t_table *table, int code)
 {
 	if (!table)
 		return (-1);
 	if (table->forks)
-		clean_pthread(table->forks, table->philo_num);
+		clean_forks(table->forks, table->philo_num);
 	if (table->philos)
 		free(table->philos);
 	if (table->threads)
@@ -28,7 +28,7 @@ int	clean_data(t_table *table, int code)
 	return (code);
 }
 
-static void	clean_pthread(pthread_mutex_t *forks, int len)
+static void	clean_forks(pthread_mutex_t *forks, int len)
 {
 	int	i;
 
@@ -49,4 +49,16 @@ int	err_clean(t_table *table, int code)
 		return (code);
 	clean_data(table, 0);
 	return (code);
+}
+
+void	clean_thread(t_table *table, int num)
+{
+	int	i;
+
+	i = 0;
+	while (i < num)
+	{
+		pthread_join(table->threads[i], NULL);
+		i++;
+	}
 }

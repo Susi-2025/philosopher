@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 16:15:55 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/11/04 14:19:56 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/11/15 19:04:32 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,5 @@ int						print_message(t_table *table, int id, char *str);
 // clean
 int						clean_data(t_table *table, int code);
 int						err_clean(t_table *table, int code);
+void					clean_thread(t_table *table, int num);
 #endif
