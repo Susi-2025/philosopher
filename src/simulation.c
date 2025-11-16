@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 19:18:25 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/11/15 19:12:15 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/11/16 10:37:26 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,23 @@ int	start_simulation(t_table *table)
 
 	i = 0;
 	table->start_time = get_time();
-	while (i < table->philo_num)
+	table->threads_create = 1;
+	while (i < table->philo_num && table->end_simu == 0)
 	{
 		if (pthread_create(&table->threads[i], NULL, routine,
 				&table->philos[i]) != 0)
 		{
 			table->end_simu = 1;
-			clean_thread(table, i);
-			return (FAIL);
+			table->err = 1;
+			clean_thread(table, table->threads_create);
+			break ;
 		}
+		table->threads_create++;
 		i++;
 	}
 	monitoring(table);
-	clean_thread(table, table->philo_num);
+	if (table->threads_create == table->philo_num)
+		clean_thread(table, table->philo_num);
 	return (SUCC);
 }
 

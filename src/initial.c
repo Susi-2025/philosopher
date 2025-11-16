@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 15:40:56 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/11/04 09:52:12 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/11/16 10:42:49 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,9 @@ int	init_philo(t_table *table)
 static void	parsing_table(t_table *table, char *av[], int ac)
 {
 	table->end_simu = 0;
+	table->print_initial = 0;
+	table->forks_initial = 0;
+	table->err = 0;
 	table->philo_num = ft_atoi(av[1]);
 	table->die_time = ft_atoi(av[2]);
 	table->eat_time = ft_atoi(av[3]);
@@ -91,20 +94,23 @@ static int	init_mutex_table(t_table *table)
 	i = 0;
 	if (pthread_mutex_init(&table->print_lock, NULL) != 0)
 		return (clean_data(table, FAIL));
+	table->print_initial = 1;
 	while (i < table->philo_num)
 	{
-		if (pthread_mutex_init(&table->forks[i], NULL) != 0)
+		if (pthread_mutex_init(&table->forks[i], NULL) != 0 || i == 3)
 		{
 			j = 0;
+			table->forks_initial = 0;
 			while (j < i)
 			{
 				pthread_mutex_destroy(&table->forks[j]);
 				j++;
 			}
-			return (clean_data(table, FAIL));
+			return (FAIL);
 		}
 		i++;
 	}
+	table->forks_initial = 1;
 	i = 0;
 	return (SUCC);
 }

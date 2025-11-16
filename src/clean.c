@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 15:40:27 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/11/15 19:13:07 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/11/16 10:40:20 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,16 @@ int	clean_data(t_table *table, int code)
 {
 	if (!table)
 		return (-1);
-	if (table->forks)
-		clean_forks(table->forks, table->philo_num);
 	if (table->philos)
 		free(table->philos);
 	if (table->threads)
 		free(table->threads);
-	pthread_mutex_destroy(&table->print_lock);
+	if (table->print_initial == 1)
+	{
+		pthread_mutex_destroy(&table->print_lock);
+		if (table->forks && table->forks_initial == 1)
+			clean_forks(table->forks, table->philo_num);
+	}
 	return (code);
 }
 

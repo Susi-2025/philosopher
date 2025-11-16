@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 16:15:55 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/11/15 19:04:32 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/11/16 10:39:40 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,10 @@ typedef struct s_table
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		print_lock;
 	_Atomic int			end_simu;
+	int					threads_create;
+	int					err;
+	int					print_initial;
+	int					forks_initial;
 }						t_table;
 
 // initial
