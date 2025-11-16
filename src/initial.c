@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 15:40:56 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/11/16 10:48:07 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/11/16 10:52:00 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ static int	init_mutex_table(t_table *table)
 		if (pthread_mutex_init(&table->forks[i], NULL) != 0)
 		{
 			j = 0;
-			table->forks_initial = 0;
 			while (j < i)
 			{
 				pthread_mutex_destroy(&table->forks[j]);
