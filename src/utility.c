@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 15:41:48 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/11/15 16:13:10 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/11/16 11:32:19 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	ft_atoi(char *s)
 		i++;
 	if (s[i] == '+')
 		i++;
-	while (s[i])
+	while (s[i] >= '0' && s[i] <= '9')
 	{
 		if (res > (UINT_MAX - (s[i] - '0')) / 10)
 			return (-1);
