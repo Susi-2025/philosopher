@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 19:18:25 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/11/16 11:03:04 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/11/17 15:53:18 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	start_simulation(t_table *table)
 		if (pthread_create(&table->threads[i], NULL, routine,
 				&table->philos[i]) != 0)
 		{
+			write(2, "ERROR: pthread_create\n", 22);
 			table->end_simu = 1;
 			table->err = 1;
 			break ;

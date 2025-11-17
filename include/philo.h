@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 16:15:55 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/11/16 10:39:40 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/11/17 14:34:04 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,5 @@ int						print_message(t_table *table, int id, char *str);
 int						clean_data(t_table *table, int code);
 int						err_clean(t_table *table, int code);
 void					clean_thread(t_table *table, int num);
+int						err_malloc(t_table *table, int code);
 #endif

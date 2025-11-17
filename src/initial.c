@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 15:40:56 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/11/16 10:52:00 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/11/17 15:48:24 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,17 +72,17 @@ static int	init_mem_table(t_table *table)
 	t_philo	*philos;
 
 	if (!table)
-		return (FAIL);
+		return (error_message("Err: no table", FAIL));
 	table->forks = malloc(sizeof(pthread_mutex_t) * table->philo_num);
 	if (!table->forks)
-		return (FAIL);
+		return (error_message("Err: malloc fail", FAIL));
 	philos = malloc(sizeof(t_philo) * table->philo_num);
 	if (!philos)
-		return (clean_data(table, FAIL));
+		return (err_malloc(table, FAIL));
 	table->philos = philos;
 	table->threads = malloc(sizeof(pthread_t) * table->philo_num);
 	if (!table->threads)
-		return (clean_data(table, FAIL));
+		return (err_malloc(table, FAIL));
 	return (SUCC);
 }
 
@@ -93,7 +93,7 @@ static int	init_mutex_table(t_table *table)
 
 	i = 0;
 	if (pthread_mutex_init(&table->print_lock, NULL) != 0)
-		return (clean_data(table, FAIL));
+		return (err_malloc(table, FAIL));
 	table->print_initial = 1;
 	while (i < table->philo_num)
 	{
@@ -105,7 +105,7 @@ static int	init_mutex_table(t_table *table)
 				pthread_mutex_destroy(&table->forks[j]);
 				j++;
 			}
-			return (FAIL);
+			return (error_message("Err: initial mutex forks", FAIL));
 		}
 		i++;
 	}
